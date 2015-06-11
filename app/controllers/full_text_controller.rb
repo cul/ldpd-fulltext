@@ -7,8 +7,9 @@ class FullTextController < ApplicationController
   configure_blacklight do |config|
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
-      qt: 'select',
+      defType: 'edismax',
       q: '*',
+      :'q.alt' => '*:*',
       :rows => 10
     }
 
@@ -56,8 +57,8 @@ class FullTextController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the 
     # facet bar
-    config.add_facet_field 'collection_ssim', label: 'Collection'
-    config.add_facet_field 'author_ssi', label: 'Author', limit: 10
+    config.add_facet_field 'collection_ssim', label: 'Collection', solr_params: { 'facet.mincount' => 1 }
+    config.add_facet_field 'author_ssi', label: 'Author', limit: 10, solr_params: { 'facet.mincount' => 1 }
 
 
     # Have BL send all facet field names to Solr, which has been the default
@@ -110,7 +111,7 @@ class FullTextController < ApplicationController
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise. 
     
-    #config.add_search_field 'default', :label => 'Keywords'
+    #config.add_search_field 'all_text_timv', :label => 'Keywords'
     
 
     # "sort results by" select (pulldown)
