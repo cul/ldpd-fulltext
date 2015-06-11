@@ -42,4 +42,9 @@ module ApplicationHelper
     classes = (options[:classes] || []) << "facet-count"
     content_tag("span", t('blacklight.search.facets.count', :number => number_with_delimiter(num)), :class => classes)
   end
+
+  # Override because we have no local show views, only links to the external site HTML
+  def url_for_document(document)
+    document['url_ssi']
+  end
 end
