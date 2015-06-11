@@ -1,0 +1,10 @@
+#header-navbar {
+  border-bottom: thin solid #2e6da4;
+}
+.navbar-header {
+	width: 100%;
+}
+#header-navbar .navbar-brand {
+  width: 100%;
+  background: url(asset_path('digital_collections.gif')) left top no-repeat;
+}
