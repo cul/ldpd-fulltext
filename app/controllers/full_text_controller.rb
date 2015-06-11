@@ -76,6 +76,7 @@ class FullTextController < ApplicationController
     config.add_index_field 'published_vern_display', :label => 'Published'
     config.add_index_field 'lc_callnum_display', :label => 'Call number'
 
+    config.index.document_actions.delete(:bookmark) # no bookmarks!
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
     config.add_show_field 'title_display', :label => 'Title'
@@ -131,4 +132,9 @@ class FullTextController < ApplicationController
     super + ['catalog']
   end
 
+  def controller_fq(solr_params, user_params)
+    if params[:controller] != 'full_text'
+      solr_params.fetch(:fq,[]) << "collection_ssim:\"#{params[:controller]}\""
+    end
+  end
 end 

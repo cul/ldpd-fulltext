@@ -1,0 +1,16 @@
+#header-navbar {
+  border-bottom: none;
+}
+.navbar-header {
+	width: 100%;
+}
+#header-navbar .navbar-brand {
+  width: 100%;
+  background: url(asset_path('notable_new_yorkers.gif')) left top no-repeat;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #933;
+  border-color: #f2e6ce;
+}
