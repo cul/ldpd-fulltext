@@ -13,7 +13,6 @@ module ApplicationHelper
   # @return [String]
   def render_facet_value(facet_field, item, options ={})
     path = search_action_path(add_facet_params_and_redirect(facet_field, item))
-    puts 'render_facet_value' + item.inspect
     content_tag(:span, :class => "facet-label") do
       link_to_unless(options[:suppress_link], facet_display_value(facet_field, item), path, :class=>"facet_select")
     end + render_facet_count(item.hits)
@@ -22,7 +21,6 @@ module ApplicationHelper
   # Standard display of a SELECTED facet value (e.g. without a link and with a remove button)
   # @params (see #render_facet_value)
   def render_selected_facet_value(facet_field, item)
-    puts 'render_selected_facet_value' + item.inspect
     content_tag(:span, :class => "facet-label") do
       content_tag(:span, facet_display_value(facet_field, item), :class => "selected") +
       # remove link
