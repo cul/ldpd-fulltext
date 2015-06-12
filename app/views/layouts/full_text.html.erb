@@ -19,7 +19,7 @@
     <title><%= render_page_title %></title>
     <%= opensearch_description_tag application_name, opensearch_full_text_url(:format => 'xml') %>
     <%= favicon_link_tag 'favicon.ico' %>
-    <%= stylesheet_link_tag "full_text", media: "all", 'data-turbolinks-track' => false %>
+    <%= stylesheet_link_tag "full_text", media: "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <%= content_for(:head) %>
@@ -30,7 +30,7 @@
     <![endif]-->
 
   </head>
-  <body class="<%= render_body_class %>" data-no-turbolink>
+  <body class="<%= render_body_class %>">
   <%= render :partial => 'shared/header_navbar' %>
 
   <%= render partial: 'shared/ajax_modal' %>
