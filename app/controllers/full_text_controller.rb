@@ -4,6 +4,8 @@ class FullTextController < ApplicationController
 
   include Blacklight::Catalog
 
+  layout Proc.new { |controller| controller.controller_name }
+
   configure_blacklight do |config|
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
