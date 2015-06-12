@@ -45,6 +45,7 @@ module ApplicationHelper
 
   # Override because we have no local show views, only links to the external site HTML
   def url_for_document(document)
-    document['url_ssi']
+    a = document['url_ssi'].split('//')
+    "#{a[0]}//#{a[1..-1].join('/')}"
   end
 end
