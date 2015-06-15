@@ -20,3 +20,28 @@
   color: #933;
   font-weight:bold;
 }
+
+.nny-browse {
+  background-color:#933;
+  border-radius:5px;
+}
+
+.nny-browse ul {
+  list-style-type:none;
+  padding-top:15px;
+  padding-left:15px;
+  padding-bottom:15px;
+}
+
+.nny-browse li {
+  padding-left:0;
+  margin-left:0;
+}
+
+.nny-browse a {
+  color:#f2e6ce;
+}
+
+.nny-browse a:hover {
+  color:#fff;
+}

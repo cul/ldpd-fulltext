@@ -46,5 +46,7 @@ module ApplicationHelper
     a = document['url_ssi'].split('//')
     "#{a[0]}//#{a[1..-1].join('/')}"
   end
-
+  def link_to_nny(name,ny)
+    link_to name, "http://www.columbia.edu/cu/lweb/digital/collections/nny/#{ny}/index.html"
+  end
 end
