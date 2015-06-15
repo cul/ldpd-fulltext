@@ -10,8 +10,11 @@ class FullTextController < ApplicationController
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
       defType: 'edismax',
+      qf: 'all_text_tsimv',
       q: '*',
       :'q.alt' => '*:*',
+      :hl => true,
+      :'hl.fl' => 'all_text_tsimv',
       :rows => 10
     }
 
@@ -77,6 +80,8 @@ class FullTextController < ApplicationController
     config.add_index_field 'imprint_ssi', :label => 'Imprint'
     config.add_index_field 'published_vern_display', :label => 'Published'
     config.add_index_field 'lc_callnum_display', :label => 'Call number'
+    config.add_index_field 'all_text_tsimv', highlight: 'all_text_tsimv',
+     label: 'Text Match', if: :only_if_q
 
     config.index.document_actions.delete(:bookmark) # no bookmarks!
     # solr fields to be displayed in the show (single result) view

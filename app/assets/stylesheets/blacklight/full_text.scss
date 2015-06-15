@@ -8,3 +8,9 @@
   width: 100%;
   background: url(asset_path('digital_collections.gif')) left top no-repeat;
 }
+
+// highlights for search matches
+.blacklight-all_text_tsimv em{
+  color: #337ab7;
+  font-weight:bold;
+}

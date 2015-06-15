@@ -13,5 +13,6 @@ class NnyController < FullTextController
      solr_params: { 'facet.mincount' => 1 }
     #config.add_facet_field 'interviewee', pivot: ['author_ssi', 'interview_num_ssi'],
     #  label: 'Interviewee', sort: 'index'
+    config.index_fields['author_ssi'].label = 'Interviewee'
   end
 end
