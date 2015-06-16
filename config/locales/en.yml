@@ -20,4 +20,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  ldpd:
+    collection:
+      columns: "Library Columns"
+      corprep: "Corporate Reports"
+      dnyc: "Digital NYC"
+      nny: "Notable New Yorkers"
