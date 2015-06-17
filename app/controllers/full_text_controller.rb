@@ -6,6 +6,8 @@ class FullTextController < ApplicationController
 
   layout Proc.new { |controller| controller.controller_name }
 
+  self.search_params_logic << :groups_logic
+
   configure_blacklight do |config|
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
@@ -36,7 +38,7 @@ class FullTextController < ApplicationController
     #}
 
     # solr field configuration for search results/index views
-    config.index.title_field = 'title_ssi'
+    config.index.title_field = 'title_display'
     config.index.display_type_field = 'format'
 
     # solr field configuration for document/show views
@@ -72,15 +74,14 @@ class FullTextController < ApplicationController
     # handler defaults, or have no facets.
     config.add_facet_fields_to_solr_request!
 
+    # synthetic field for display
+    config.document_presenter_class = TextCollections::DocumentPresenter
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display 
-    config.add_index_field 'title_ssi', :label => 'Title'
-    config.add_index_field 'author_ssi', :label => 'Author'
-    config.add_index_field 'format', :label => 'Format'
-    config.add_index_field 'page_num_ssi', :label => 'Page Number'
+    config.add_index_field 'title_ssi', :label => 'Title', if: true
+    config.add_index_field 'author_ssi', :label => 'Author', if: false
+    config.add_index_field 'page_num_ssi', :label => 'Page Number', if: false
     config.add_index_field 'imprint_ssi', :label => 'Imprint'
-    config.add_index_field 'published_vern_display', :label => 'Published'
-    config.add_index_field 'lc_callnum_display', :label => 'Call number'
     config.add_index_field 'all_text_tsimv', highlight: 'all_text_tsimv',
      label: 'Text Match', if: :only_if_q
 
@@ -127,9 +128,9 @@ class FullTextController < ApplicationController
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
-    config.add_sort_field 'score desc, sort_title_ssi asc', :label => 'relevance'
-    config.add_sort_field 'sort_author_ssi asc, sort_title_ssi asc', :label => 'author'
-    config.add_sort_field 'sort_title_ssi asc, sort_author_ssi asc', :label => 'title'
+    config.add_sort_field 'score desc, sort_title_ssi asc, page_num_isi asc', :label => 'relevance'
+    config.add_sort_field 'sort_author_ssi asc, sort_title_ssi asc, page_num_isi asc', :label => 'author'
+    config.add_sort_field 'sort_title_ssi asc,  page_num_isi asc, sort_author_ssi asc', :label => 'title'
 
     # If there are more than this many search results, no spelling ("did you 
     # mean") suggestion is offered.
@@ -143,6 +144,16 @@ class FullTextController < ApplicationController
   def controller_fq(solr_params, user_params)
     if params[:controller] != 'full_text'
       solr_params.fetch(:fq,[]) << "collection_ssim:\"#{params[:controller]}\""
+    end
+  end
+  def groups_logic(solr_params, user_params)
+    return if user_params[:f] && user_params[:f].include?('author_ssi') && user_params[:f].include?('title_ssi')
+    solr_params[:group] = true
+    solr_params[:'group.ngroups'] = true
+    if solr_params.fetch(:fq,[]).detect {|v| v =~ /author_ssi/}
+      solr_params[:'group.field'] = 'title_ssi'
+    else
+      solr_params[:'group.field'] = 'author_ssi'
     end
   end
 end 

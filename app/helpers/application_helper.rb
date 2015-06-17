@@ -41,4 +41,7 @@ module ApplicationHelper
     content_tag("span", t('blacklight.search.facets.count', :number => number_with_delimiter(num)), :class => classes)
   end
 
+  def doc_title(doc, *args)
+    "#{doc["title_ssi"]} #{doc["page_num_ssi"]}"
+  end
 end
