@@ -67,6 +67,7 @@ class FullTextController < ApplicationController
     config.add_facet_field 'collection_ssim', label: 'Collection',
       helper_method: :translate_collection, solr_params: { 'facet.mincount' => 1 }
     config.add_facet_field 'author_ssi', label: 'Author', limit: 10, solr_params: { 'facet.mincount' => 1 }
+    config.add_facet_field 'basename_ssi', :label => 'Work Id', if: false
 
 
     # Have BL send all facet field names to Solr, which has been the default
