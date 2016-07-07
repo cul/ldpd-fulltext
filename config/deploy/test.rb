@@ -1,11 +1,3 @@
-set :rails_env, "fulltext_test"
-set :application, "fulltext_test"
-set :domain,      "berlioz.cul.columbia.edu"
-set :deploy_to,   "/opt/passenger/#{application}/"
-set :user, "deployer"
-set :scm_passphrase, "Current user can full owner domains."
-
-role :app, domain
-role :web, domain
-role :worker, domain
-role :db,  domain, :primary => true
+server "#{fetch(:instance)}-nginx-#{fetch(:stage)}1.cul.columbia.edu", user: fetch(:remote_user), roles: %w(app db web)
+# In test/prod, deploy from release tags; most recent version is default
+ask :branch, proc { `git tag --sort=version:refname`.split("\n").last }
