@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.1'
+gem 'rails', '4.2.5.2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -21,6 +21,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'nokogiri', '~> 1.8.1'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -29,7 +30,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development, :test do
 # Use Capistrano for deployment
-  gem 'capistrano', '~>3.x', require: false
+  gem 'capistrano', '~>3.5.0', require: false
 # Rails and Bundler integrations were moved out from Capistrano 3
   gem 'capistrano-rails', '~> 1.1', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false
