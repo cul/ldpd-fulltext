@@ -68,6 +68,8 @@ class FullTextController < ApplicationController
       helper_method: :translate_collection, solr_params: { 'facet.mincount' => 1 }
     config.add_facet_field 'author_ssi', label: 'Author', limit: 10, solr_params: { 'facet.mincount' => 1 }
     config.add_facet_field 'basename_ssi', :label => 'Work Id', if: false
+    config.add_facet_field 'title_ssi', :label => 'Title', if: false
+    config.add_facet_field 'interview_num_ssi', :label => 'Interview', if: false
 
 
     # Have BL send all facet field names to Solr, which has been the default
@@ -82,6 +84,7 @@ class FullTextController < ApplicationController
     config.add_index_field 'title_ssi', :label => 'Title', if: true
     config.add_index_field 'author_ssi', :label => 'Author', if: false
     config.add_index_field 'page_num_ssi', :label => 'Page Number', if: false
+    config.add_index_field 'interview_num_ssi', :label => 'Interview', if: false
     config.add_index_field 'imprint_ssi', :label => 'Imprint'
     config.add_index_field 'all_text_tsimv', highlight: 'all_text_tsimv',
      label: 'Text Match', if: :only_if_q
@@ -148,13 +151,36 @@ class FullTextController < ApplicationController
     end
   end
   def groups_logic(solr_params, user_params)
-    return if user_params[:f] && user_params[:f].include?('author_ssi') && user_params[:f].include?('title_ssi')
-    solr_params[:group] = true
-    solr_params[:'group.ngroups'] = true
-    if solr_params.fetch(:fq,[]).detect {|v| v =~ /author_ssi/}
-      solr_params[:'group.field'] = 'title_ssi'
+    collection = user_params.fetch(:f, {}) ['collection_ssim'] || []
+    case collection[0]
+    when 'columns'
+      # Library Columns has no author, so can only group by title
+      unless user_params.fetch(:f,[]).include?('title_ssi')
+        solr_params[:'group.field'] = 'title_ssi'
+      end
+    when 'nny'
+      # NNY should group by author, then by interview_num? title?
+      if user_params.fetch(:f,[]).include?('author_ssi')
+        unless user_params.fetch(:f,[]).include?('title_ssi')
+          solr_params[:'group.field'] = 'title_ssi'
+        end
+      else
+        solr_params[:'group.field'] = 'author_ssi'
+      end
     else
-      solr_params[:'group.field'] = 'author_ssi'
+      # generally group by author, then by title_ssi
+      if user_params.fetch(:f,[]).include?('author_ssi')
+        unless user_params.fetch(:f,[]).include?('title_ssi')
+          solr_params[:'group.field'] = 'title_ssi'
+        end
+      else
+        solr_params[:'group.field'] = 'author_ssi'
+      end
+    end
+    if solr_params[:'group.field']
+      solr_params[:group] = true
+      # set this to true to paginate by groups instead of by items
+      solr_params[:'group.ngroups'] = true
     end
   end
-end 
+end
