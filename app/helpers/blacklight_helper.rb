@@ -6,7 +6,6 @@ module BlacklightHelper
       field_config.accessor
   end
   def only_if_q(config, *args)
-    args.each {|arg| puts arg }
     params.include? :q
   end
 end
