@@ -21,7 +21,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'nokogiri', '~> 1.8.1'
+gem 'nokogiri', '~> 1.10.10'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -55,10 +55,10 @@ group :fulltext_dev, :fulltext_test, :fulltext_prod do
   gem 'mysql2', '0.3.18'
 end
 
-gem 'blacklight', '>= 5.3.0'
+gem 'blacklight', '~> 6.0'
 gem 'logger', '1.2.8.1'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'rsolr', '~> 1.0.6'
 gem 'devise'
 gem 'devise-guests', '~> 0.3'
-gem 'blacklight-marc', '~> 5.0'
+gem 'blacklight-marc', '~> 6.0'

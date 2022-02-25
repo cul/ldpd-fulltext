@@ -1,14 +1,19 @@
 # -*- encoding : utf-8 -*-
 class FullTextController < ApplicationController  
-  include Blacklight::Marc::Catalog
-
   include Blacklight::Catalog
+
+  include Blacklight::Marc::Catalog
 
   layout Proc.new { |controller| controller.controller_name }
 
-  self.search_params_logic << :groups_logic
+  self.search_state_class = TextCollections::SearchState
+
+  def only_if_q(config, *args)
+    params.include? :q
+  end
 
   configure_blacklight do |config|
+    config.navbar.partials = {}
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
       defType: 'edismax',
@@ -77,8 +82,6 @@ class FullTextController < ApplicationController
     # handler defaults, or have no facets.
     config.add_facet_fields_to_solr_request!
 
-    # synthetic field for display
-    config.document_presenter_class = TextCollections::DocumentPresenter
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display 
     config.add_index_field 'title_ssi', :label => 'Title', if: true
@@ -89,6 +92,7 @@ class FullTextController < ApplicationController
     config.add_index_field 'all_text_tsimv', highlight: 'all_text_tsimv',
      label: 'Text Match', if: :only_if_q
 
+    config.index.presenter_class = TextCollections::DocumentPresenter
     config.index.document_actions.delete(:bookmark) # no bookmarks!
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
@@ -143,44 +147,5 @@ class FullTextController < ApplicationController
 
   def self.local_prefixes
     super + ['catalog']
-  end
-
-  def controller_fq(solr_params, user_params)
-    if params[:controller] != 'full_text'
-      solr_params.fetch(:fq,[]) << "collection_ssim:\"#{params[:controller]}\""
-    end
-  end
-  def groups_logic(solr_params, user_params)
-    collection = user_params.fetch(:f, {}) ['collection_ssim'] || []
-    case collection[0]
-    when 'columns'
-      # Library Columns has no author, so can only group by title
-      unless user_params.fetch(:f,[]).include?('title_ssi')
-        solr_params[:'group.field'] = 'title_ssi'
-      end
-    when 'nny'
-      # NNY should group by author, then by interview_num? title?
-      if user_params.fetch(:f,[]).include?('author_ssi')
-        unless user_params.fetch(:f,[]).include?('title_ssi')
-          solr_params[:'group.field'] = 'title_ssi'
-        end
-      else
-        solr_params[:'group.field'] = 'author_ssi'
-      end
-    else
-      # generally group by author, then by title_ssi
-      if user_params.fetch(:f,[]).include?('author_ssi')
-        unless user_params.fetch(:f,[]).include?('title_ssi')
-          solr_params[:'group.field'] = 'title_ssi'
-        end
-      else
-        solr_params[:'group.field'] = 'author_ssi'
-      end
-    end
-    if solr_params[:'group.field']
-      solr_params[:group] = true
-      # set this to true to paginate by groups instead of by items
-      solr_params[:'group.ngroups'] = true
-    end
   end
 end

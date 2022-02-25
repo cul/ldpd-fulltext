@@ -1,7 +1,26 @@
 Rails.application.routes.draw do
-  Blacklight::Marc.add_routes(self)
   root to: "full_text#index"
-  blacklight_for :full_text, :nny
+
+  # Blacklight routes
+  concern :searchable, Blacklight::Routes::Searchable.new
+  concern :exportable, Blacklight::Routes::Exportable.new
+
+  resource :full_text, only: [:index], as: 'full_text', path: 'full_text', controller: 'full_text' do
+    concerns :searchable
+  end
+
+  resource :nny, only: [:index], as: 'nny', path: 'nny', controller: 'nny' do
+    concerns :searchable
+  end
+
+  resources :solr_documents, only: [:show], path: '/full_text', controller: 'full_text' do
+    concerns :exportable
+  end
+
+  mount Blacklight::Engine => '/'
+
+  Blacklight::Marc.add_routes(self)
+
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
