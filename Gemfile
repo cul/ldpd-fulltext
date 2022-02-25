@@ -44,8 +44,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+  gem "jettywrapper", ">= 2.0"
+  gem "solr_wrapper"
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
@@ -56,7 +56,7 @@ group :fulltext_dev, :fulltext_test, :fulltext_prod do
 end
 
 gem 'blacklight', '>= 5.3.0'
-gem 'jettywrapper', '>= 2.0'
+gem 'logger', '1.2.8.1'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'rsolr', '~> 1.0.6'
 gem 'devise'
