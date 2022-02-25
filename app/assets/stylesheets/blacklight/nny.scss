@@ -7,6 +7,7 @@
 #header-navbar .navbar-brand {
   width: 100%;
   background: url(asset_path('notable_new_yorkers.gif')) left top no-repeat;
+  background-size: contain;
 }
 
 .btn-primary {

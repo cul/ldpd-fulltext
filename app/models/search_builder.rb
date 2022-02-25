@@ -4,8 +4,10 @@ class SearchBuilder < Blacklight::SearchBuilder
   self.default_processor_chain += [:groups_logic, :controller_fq]
 
   def controller_fq(chain_params)
+    puts "blacklight_params[:controller]: #{blacklight_params[:controller]}"
     if blacklight_params[:controller] != 'full_text'
-      chain_params.fetch(:fq,[]) << "collection_ssim:\"#{blacklight_params[:controller]}\""
+      chain_params[:fq] ||= []
+      chain_params[:fq] << "collection_ssim:\"#{blacklight_params[:controller]}\""
     end
   end
 

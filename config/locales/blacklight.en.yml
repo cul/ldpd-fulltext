@@ -4,3 +4,5 @@ en:
     search:
       group:
         more: 'see grouped results »'
+      zero_results:
+        use_fewer_keywords: "Using different (or fewer) keywords to start may help."

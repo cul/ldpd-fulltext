@@ -14,4 +14,8 @@ class NnyController < FullTextController
      solr_params: { 'facet.mincount' => 1 }
     config.index_fields['author_ssi'].label = 'Interviewee'
   end
+
+  def application_name
+    'Notable New Yorkers Transcript Search'
+  end
 end

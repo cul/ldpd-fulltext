@@ -2,14 +2,16 @@
 class FullTextController < ApplicationController  
   include Blacklight::Catalog
 
-  include Blacklight::Marc::Catalog
-
   layout Proc.new { |controller| controller.controller_name }
 
   self.search_state_class = TextCollections::SearchState
 
   def only_if_q(config, *args)
     params.include? :q
+  end
+
+  def application_name
+    'Digital Collections Transcript Search'
   end
 
   configure_blacklight do |config|
@@ -71,7 +73,7 @@ class FullTextController < ApplicationController
     # facet bar
     config.add_facet_field 'collection_ssim', label: 'Collection',
       helper_method: :translate_collection, solr_params: { 'facet.mincount' => 1 }
-    config.add_facet_field 'author_ssi', label: 'Author', limit: 10, solr_params: { 'facet.mincount' => 1 }
+    config.add_facet_field 'author_ssi', label: 'Author', limit: 10, solr_params: { 'facet.mincount' => 1, 'facet.missing' => false }
     config.add_facet_field 'basename_ssi', :label => 'Work Id', if: false
     config.add_facet_field 'title_ssi', :label => 'Title', if: false
     config.add_facet_field 'interview_num_ssi', :label => 'Interview', if: false

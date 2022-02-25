@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
+gem 'sprockets', '~> 3.7.2'
+gem 'bootstrap', '~> 4.0'
+gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -53,10 +56,9 @@ group :fulltext_dev, :fulltext_test, :fulltext_prod do
   gem 'mysql2', '0.3.18'
 end
 
-gem 'blacklight', '~> 6.0'
+gem 'blacklight', '~> 7.0'
 gem 'logger', '1.2.8.1'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'rsolr', '~> 1.0.6'
 gem 'devise'
 gem 'devise-guests', '~> 0.3'
-gem 'blacklight-marc', '~> 6.0'
