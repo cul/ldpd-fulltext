@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.4'
 gem 'sprockets', '~> 3.7.2'
 gem 'bootstrap', '~> 4.0'
 gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
@@ -28,7 +28,9 @@ gem 'nokogiri', '~> 1.10.10'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
-
+group :development do
+  gem 'listen', '>= 3.0.5', '< 3.2'
+end
 group :development, :test do
 # Use Capistrano for deployment
   gem 'capistrano', '~>3.5.0', require: false
@@ -41,7 +43,7 @@ group :development, :test do
   # Just add it to your Gemfile and require it in your Capfile.
   gem 'capistrano-passenger', '~> 0.1', require: false
   # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.4'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
@@ -53,12 +55,12 @@ group :development, :test do
 end
 group :fulltext_dev, :fulltext_test, :fulltext_prod do
   # Use mysql2 gem for mysql connections in deployed apps
-  gem 'mysql2', '0.3.18'
+  gem 'mysql2', '~> 0.5'
 end
 
 gem 'blacklight', '~> 7.0'
 gem 'logger', '1.2.8.1'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'rsolr', '~> 1.0.6'
-gem 'devise'
-gem 'devise-guests', '~> 0.3'
+gem 'devise', '~> 4.7'
+gem 'devise-guests'
