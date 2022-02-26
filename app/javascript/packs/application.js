@@ -15,4 +15,13 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-console.log('Hello World from Webpacker')
+import "./full_text.scss"; // prompts webpack to include css packs
+import "./nny.scss"; // prompts webpack to include css packs
+import 'font-awesome/css/font-awesome.css';
+
+import "../images/notable_new_yorkers_sm.gif";
+
+
+import 'bootstrap';
+import 'blacklight-frontend/app/assets/javascripts/blacklight/blacklight';
+import '@ungap/url-search-params';

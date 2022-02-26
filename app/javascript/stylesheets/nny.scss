@@ -1,5 +1,7 @@
+$input-border-focus: #f2e6ce;
+
 @import 'bootstrap';
 
 @import 'blacklight/blacklight';
 
-@import 'blacklight/full_text';
+@import './nny/nny';
