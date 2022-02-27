@@ -1,4 +1,5 @@
-lock '3.5.0'
+# config valid for current version and patch releases of Capistrano
+lock "~> 3.11"
 
 set :department, 'ldpd'
 set :instance, fetch(:department)
@@ -29,12 +30,14 @@ set :deploy_to,   "/opt/passenger/#{fetch(:instance)}/#{fetch(:deploy_name)}"
 set :log_level, :info
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('log')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'node_modules', 'public/packs')
 
 # Default value for keep_releases is 5
 set :keep_releases, 3
 
 set :passenger_restart_with_touch, true
+
+set :default_env, { NODE_ENV: 'production' }
 
 set :linked_files, fetch(:linked_files, []).push(
   "config/database.yml",
@@ -56,7 +59,7 @@ namespace :deploy do
   desc "Add tag based on current version from VERSION file"
   task :auto_tag do
     current_version = "v#{IO.read("VERSION").strip}/#{DateTime.now.strftime("%Y%m%d")}"
-                      
+
     ask(:tag, current_version)
     tag = fetch(:tag)
 
