@@ -5,7 +5,6 @@ source 'https://rubygems.org'
 gem 'rails', '~> 6.0.4'
 gem 'webpacker', '~> 5.4'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', '>= 0.12.1',  platforms: :ruby
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
