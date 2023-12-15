@@ -1,5 +1,5 @@
 <% navbar_link ||= root_path %>
-<div id="header-navbar" class="navbar navbar-static-top" role="navigation">
+<nav id="header-navbar" class="navbar navbar-expand-md navbar-light bg-light topbar" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle btn collapsed" data-toggle="collapse" data-target="#user-util-collapse">
@@ -13,10 +13,13 @@
       <% end %>
     </div>
   </div>
-</div>
+</nav>
 
-<div id="search-navbar" class="navbar navbar-default navbar-static-top" role="navigation">
+<div id="search-navbar" class="navbar-search navbar navbar-light bg-light" role="navigation">
   <div class="container">
-    <%= render_search_bar  %>
+    <%= render((blacklight_config&.view_config(document_index_view_type)&.search_bar_component ||TextCollections::SearchBarComponent).new(
+          url: search_action_url,
+          params: search_state.params_for_search.except(:qt),
+          autocomplete_path: search_action_path(action: :suggest))) %>
   </div>
 </div>

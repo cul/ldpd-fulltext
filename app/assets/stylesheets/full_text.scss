@@ -1,8 +1,9 @@
 $input-border-focus: #f2e6ce;
 
 @import 'bootstrap';
+@import "font-awesome";
 
 $logo-image: 'blacklight/images/logo.png';
-@import 'blacklight-frontend/app/assets/stylesheets/blacklight/blacklight_base';
+@import 'blacklight/blacklight';
 
 @import '../stylesheets/full_text/full_text';

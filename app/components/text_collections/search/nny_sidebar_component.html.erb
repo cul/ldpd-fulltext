@@ -1,6 +1,6 @@
 <div class="nny-browse">
 <ul>
-<li><%= image_pack_tag "notable_new_yorkers_sm.gif" %></li>
+<li><%= image_tag "notable_new_yorkers_sm.gif" %></li>
 <li><%= link_to_nny("Bennett Cerf","cerfb") %></li>
 <li><%= link_to_nny("Kenneth Clark","clarkk") %></li>
 <li><%= link_to_nny("Mamie Clark","clarkm") %></li>
@@ -13,4 +13,12 @@
 <li><%= link_to_nny("Frank Stanton","stantonf") %></li>
 </ul>
 </div>
-<%= render 'facets' %>
+
+<% facet_group_names.each do |groupname| %>
+  <% fields = facet_fields_in_group(groupname) %>
+  <%= render group_component_class.new(id: groupname, fields: fields, response: response) do |component| %>
+    <% component.with_body do %>
+      <%= render Blacklight::FacetComponent.with_collection(fields, response: response) %>
+    <% end %>
+  <% end %>
+<% end %>

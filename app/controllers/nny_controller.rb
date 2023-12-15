@@ -13,6 +13,8 @@ class NnyController < FullTextController
      sort: 'index', after:'interview_num_ssi', limit: false, label: 'Session',
      solr_params: { 'facet.mincount' => 1 }
     config.index_fields['author_ssi'].label = 'Interviewee'
+    config.index.sidebar_component = TextCollections::Search::NnySidebarComponent
+    config.advanced_search.enabled = false
   end
 
   def application_name
