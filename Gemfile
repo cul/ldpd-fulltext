@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-
+gem 'faraday', '~> 2.7.10' # rails 6.x compatibility
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.4'
+gem 'rails', '~> 6.1.7'
 gem 'webpacker', '~> 5.4'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 
@@ -10,8 +10,6 @@ gem 'webpacker', '~> 5.4'
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'nokogiri', '~> 1.15.2' # update past 1.10 requires alma
 # Use ActiveModel has_secure_password
