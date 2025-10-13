@@ -11,7 +11,7 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 
-gem 'nokogiri', '~> 1.15.2' # update past 1.10 requires alma
+gem 'nokogiri', '~> 1.15.2', force_ruby_platform: true # update past 1.10 requires alma
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
