@@ -23,11 +23,12 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
 end
 group :development, :test do
-  gem 'capistrano', '~> 3.11', require: false
+  # Use Capistrano for deployment
+  gem 'capistrano', '~> 3.19.2', require: false
   gem 'capistrano-cul', require: false
   gem 'capistrano-passenger', '~> 0.1', require: false
   gem 'capistrano-rails', '~> 1.4', require: false
-  gem 'capistrano-rvm', '~> 0.1', require: false
+
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3', '~> 1.6.0'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
