@@ -66,3 +66,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'rsolr'
 gem 'devise', '~> 4.7'
 gem 'devise-guests'
+
+# TODO: Remove this concurrent-ruby pin when we update to Rails 7.1 or later
+gem 'concurrent-ruby', '1.3.4'
