@@ -41,11 +41,11 @@ group :development do
   gem 'listen'
 end
 group :development, :test do
-  gem 'capistrano', '~> 3.17.3', require: false
+  # Use Capistrano for deployment
+  gem 'capistrano', '~> 3.19.2', require: false
+  gem 'capistrano-cul', require: false
+  gem 'capistrano-passenger', '~> 0.1', require: false
   gem 'capistrano-rails', '~> 1.4', require: false
-  gem 'capistrano-bundler', '~> 1.1', require: false
-  gem 'capistrano-rvm', '~> 0.1', require: false
-  gem 'capistrano-passenger', '~> 0.2', require: false
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3', '~> 1.4'
 
