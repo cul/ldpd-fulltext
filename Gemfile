@@ -13,7 +13,7 @@ gem 'terser'
 
 gem "sassc-rails", "~> 2.1"
 
-gem "bootstrap", "~> 5.1"
+gem "bootstrap", "~> 5.3"
 gem "font-awesome-sass", "~> 6.4.0"
 
 # Use Puma as the app server
@@ -23,7 +23,7 @@ gem 'puma', '~> 5.2'
 gem "importmap-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem "turbo-rails"
+# gem "turbo-rails"
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
@@ -60,7 +60,7 @@ group :fulltext_dev, :fulltext_test, :fulltext_prod do
   gem 'mysql2', '~> 0.5'
 end
 
-gem 'blacklight', '~> 8.1'
+gem 'blacklight', '~> 8.3'
 gem 'logger', '1.2.8.1'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'rsolr'
